@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Emprendedores — Misión y Comunión</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="/img/logo.jpg" alt="MYC" onerror="this.style.display='none'">
+      <div>
+        <div class="login-brand">Red Emprendedores</div>
+        <div class="login-sub">Misión y Comunión</div>
+      </div>
+    </div>
+    <div id="login-form">
+      <h2>Iniciar sesión</h2>
+      <p class="form-hint">Ingresa a tu cuenta para acceder a la red</p>
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" id="login-email" placeholder="tu@correo.com" value="ana@myc.org">
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="login-pass" placeholder="••••••••" value="pass123">
+      </div>
+      <div id="login-error" class="error-msg" style="display:none"></div>
+      <button class="btn-primary full" onclick="doLogin()">Entrar →</button>
+      <div class="login-sep">¿No tienes cuenta? <a onclick="showRegisterForm()">Regístrate aquí</a></div>
+      <div class="demo-accounts">
+        <div class="demo-title">Cuentas demo:</div>
+        <div class="demo-btns">
+          <button onclick="quickLogin('admin@myc.org','admin123')">Admin</button>
+          <button onclick="quickLogin('manager@myc.org','manager123')">Manager</button>
+          <button onclick="quickLogin('ana@myc.org','pass123')">Emprendedor</button>
+        </div>
+      </div>
+    </div>
+    <div id="register-form" style="display:none">
+      <h2>Crear cuenta</h2>
+      <p class="form-hint">Únete a la Red de Emprendedores MYC</p>
+      <div class="form-group"><label>Nombre completo *</label><input type="text" id="reg-nombre" placeholder="Tu nombre"></div>
+      <div class="form-group"><label>Correo electrónico *</label><input type="email" id="reg-email" placeholder="tu@correo.com"></div>
+      <div class="form-group"><label>Contraseña *</label><input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres"></div>
+      <div class="form-group"><label>Ciudad</label><input type="text" id="reg-ciudad" placeholder="Lima, Perú"></div>
+      <div class="form-group"><label>Profesión</label><input type="text" id="reg-profesion" placeholder="Ej: Ingeniero, Médico..."></div>
+      <div id="reg-error" class="error-msg" style="display:none"></div>
+      <button class="btn-primary full" onclick="doRegister()">Registrarme →</button>
+      <div class="login-sep"><a onclick="showLoginForm()">← Volver al inicio de sesión</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" class="app" style="display:none">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="/img/logo.jpg" alt="MYC" onerror="this.style.display='none'">
+      <div class="sidebar-logo-text">
+        <strong>Red Emprendedores</strong>
+        <span>Misión y Comunión</span>
+      </div>
+    </div>
+    <div class="sidebar-section">Principal</div>
+    <button class="nav-item active" data-page="dashboard"><span class="icon">📊</span> Dashboard</button>
+    <button class="nav-item" data-page="directorio"><span class="icon">👥</span> Directorio</button>
+    <button class="nav-item" data-page="mi-perfil"><span class="icon">✍️</span> Mi Perfil</button>
+    <div class="sidebar-section">Networking</div>
+    <button class="nav-item" data-page="oportunidades"><span class="icon">💡</span> Ideas & Proyectos</button>
+    <button class="nav-item" data-page="agenda"><span class="icon">📅</span> Agenda <span class="nav-badge" id="agenda-badge" style="display:none">0</span></button>
+    <button class="nav-item" data-page="mensajes"><span class="icon">💬</span> Mensajes <span class="nav-badge" id="msg-badge" style="display:none">0</span></button>
+    <button class="nav-item" data-page="contactos"><span class="icon">🤝</span> Mis Contactos</button>
+    <div class="sidebar-section" id="mgr-section" style="display:none">Gestión</div>
+    <button class="nav-item" data-page="manager" id="mgr-btn" style="display:none"><span class="icon">🔐</span> Manager <span class="nav-badge" id="mgr-badge" style="display:none">0</span></button>
+    <div class="sidebar-footer">
+      <div class="user-pill">
+        <div class="user-avatar" id="user-avatar-sidebar">?</div>
+        <div class="user-info">
+          <strong id="user-name-sidebar">—</strong>
+          <span id="user-role-sidebar">—</span>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">Salir</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+      <h1 id="page-title">Dashboard</h1>
+      <div class="topbar-right">
+        <div class="topbar-search">
+          <span>🔍</span>
+          <input type="text" id="global-search" placeholder="Buscar emprendedor, sector..." oninput="handleGlobalSearch(this.value)">
+        </div>
+      </div>
+    </div>
+
+    <!-- PAGES -->
+    <div class="pages">
+      <div id="page-dashboard" class="page active"></div>
+      <div id="page-directorio" class="page"></div>
+      <div id="page-mi-perfil" class="page"></div>
+      <div id="page-oportunidades" class="page"></div>
+      <div id="page-agenda" class="page"></div>
+      <div id="page-mensajes" class="page"></div>
+      <div id="page-contactos" class="page"></div>
+      <div id="page-manager" class="page"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PERFIL -->
+<div class="modal-overlay" id="profile-modal">
+  <div class="modal" id="profile-modal-content"></div>
+</div>
+
+<!-- MODAL OPORTUNIDAD -->
+<div class="modal-overlay" id="opp-modal">
+  <div class="modal" id="opp-modal-content"></div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
