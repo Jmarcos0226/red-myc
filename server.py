@@ -643,12 +643,12 @@ def spa(path):
 # ══════════════════════════════════════════════════════════════
 #  MAIN
 # ══════════════════════════════════════════════════════════════
-if __name__ == "__main__":
-    init_db()
-    print(f"\n🚀  Red Emprendedores MYC corriendo en  http://localhost:{PORT}")
-    print("\n📋  Cuentas de acceso:")
-    print("    👑  Admin:    admin@myc.org    / admin123")
-    print("    🔐  Manager:  manager@myc.org  / manager123")
-    print("    👤  Demo:     ana@myc.org      / pass123")
-    print("         (todos los emprendedores demo usan: pass123)\n")
-    app.run(host="0.0.0.0", port=PORT, debug=False)
+#if __name__ == "__main__":
+#    init_db()
+#   print(f"\n🚀  Red Emprendedores MYC corriendo en  http://localhost:{PORT}")
+#    print("\n📋  Cuentas de acceso:")
+#    print("    👑  Admin:    admin@myc.org    / admin123")
+#    print("    🔐  Manager:  manager@myc.org  / manager123")
+#    print("    👤  Demo:     ana@myc.org      / pass123")
+#   print("         (todos los emprendedores demo usan: pass123)\n")
+#    app.run(host="0.0.0.0", port=PORT, debug=False)
